@@ -11,5 +11,7 @@ int main(int argc, char * argv[])
 
 	delete game;
 
+	game = NULL;
+
 	return 0;
 }
