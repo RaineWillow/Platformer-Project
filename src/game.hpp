@@ -1,8 +1,9 @@
 #ifndef Game_hpp
 #define Game_hpp
 #include "SDL2/SDL.h"
-#include "SDL2/SDL_image.h"
+#include "core/resource_manager.hpp"
 #include <iostream>
+#include <string>
 
 class Game {
 public:
@@ -22,6 +23,7 @@ private:
 	bool _isRunning;
 	SDL_Window * _window;
 	SDL_Renderer * _buffer;
+	ResourceManager * _resManager;
 
 };
 #endif
