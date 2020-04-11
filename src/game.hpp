@@ -2,6 +2,7 @@
 #define Game_hpp
 #include "SDL2/SDL.h"
 #include "core/resource_manager.hpp"
+#include "core/camera.hpp"
 #include <iostream>
 #include <string>
 
@@ -24,6 +25,7 @@ private:
 	SDL_Window * _window;
 	SDL_Renderer * _buffer;
 	ResourceManager * _resManager;
+	Camera * _camera;
 
 };
 #endif
