@@ -28,20 +28,20 @@ Game::Game(const char * title, int xPos, int yPos, int width, int height, bool f
 
 	_resManager = new ResourceManager();
 	_camera = new Camera();
+	_tileMap = new TileMap(0, 0, 0, 0);
 
 	// TODO: delete me
 	_resManager->loadTexture("tiles/00.png", _buffer);
 	_resManager->loadTexture("tiles/01.png", _buffer);
 	_camera->setCameraPos(12, 7);
-
-
-
+	_tileMap->loadFromFile("C:/dev/c++/Platformer-Project/res/maps/simp_map.dat");
 }
 
 Game::~Game() {
 
 	delete _resManager;
 	delete _camera;
+	delete _tileMap;
 	SDL_DestroyRenderer(_buffer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
@@ -66,14 +66,7 @@ void Game::render() {
 	SDL_RenderClear(_buffer);
 
 	// TODO: delete me
-	SDL_Rect texture_rect;
-	texture_rect.x = 0 + _camera->camX();  //the x coordinate
-	texture_rect.y = 0 + _camera->camY(); // the y coordinate
-	texture_rect.w = 32; //the width of the texture
-	texture_rect.h = 32; //the height of the texture
-
-
-	SDL_RenderCopy(_buffer, _resManager->getTexture(0), NULL, &texture_rect);
+	_tileMap->renderMap(_buffer, _resManager, _camera);
 	SDL_RenderPresent(_buffer);
 }
 

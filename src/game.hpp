@@ -3,6 +3,7 @@
 #include "SDL2/SDL.h"
 #include "core/resource_manager.hpp"
 #include "core/camera.hpp"
+#include "map/tilemap.hpp"
 #include <iostream>
 #include <string>
 
@@ -26,6 +27,7 @@ private:
 	SDL_Renderer * _buffer;
 	ResourceManager * _resManager;
 	Camera * _camera;
+	TileMap * _tileMap;
 
 };
 #endif

@@ -1,8 +1,13 @@
 #ifndef TileMap_hpp
 #define TileMap_hpp
 #include "SDL2/SDL.h"
+#include <iostream>
 #include <string>
+#include <vector>
+#include <fstream>
 #include "tile.hpp"
+#include "../core/resource_manager.hpp"
+#include "../core/camera.hpp"
 
 class TileMap {
 public:
@@ -26,6 +31,8 @@ public:
 
 	//void loadFromMap(TileMap * newMap);
 	void loadFromFile(std::string path);
+
+	void saveToFile(std::string path);
 
 	//void updateMap();
 	//void updateOnscreenMap();
