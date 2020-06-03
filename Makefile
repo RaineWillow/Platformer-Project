@@ -1,10 +1,14 @@
 CXX=g++
 CFLAGS=
 LIBS=-lmingw32 -lSDL2main -lSDL2 -lSDL2_image
-SOURCES=src/main.cpp src/game.cpp src/core/resource_manager.cpp src/core/camera.cpp src/map/tilemap.cpp src/map/tile.cpp
+
+SOURCES=src/main.cpp src/game.cpp
+CORE=src/core/resource_manager.cpp src/core/camera.cpp
+MAP=src/map/tilemap.cpp src/map/tile.cpp
+UTILS=src/utils/controller.cpp
 
 all:
-	$(CXX) $(CFLAGS) -o game.exe $(SOURCES) $(LIBS)
+	$(CXX) $(CFLAGS) -o game.exe $(SOURCES) $(CORE) $(MAP) $(UTILS) $(LIBS)
 
 .PHONY: run
 run: all

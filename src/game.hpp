@@ -4,6 +4,7 @@
 #include "core/resource_manager.hpp"
 #include "core/camera.hpp"
 #include "map/tilemap.hpp"
+#include "utils/controller.hpp"
 #include <iostream>
 #include <string>
 
@@ -22,12 +23,25 @@ public:
 
 private:
 
+	int _cw;
+	int _ch;
+
+	int _ox;
+	int _oy;
+
+	int _w;
+	int _h;
+
 	bool _isRunning;
 	SDL_Window * _window;
 	SDL_Renderer * _buffer;
 	ResourceManager * _resManager;
 	Camera * _camera;
 	TileMap * _tileMap;
+	Controller * _controller;
+	SDL_Texture * _renderScreen;
+
+	void handleWindowEvents(SDL_Event * event);
 
 };
 #endif
