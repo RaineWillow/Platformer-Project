@@ -103,6 +103,11 @@ bool Controller::getMbClicked(Uint8 mb) {
 	return false;
 }
 
+void Controller::mouseMotion(Sint32 mx, Sint32 my){
+	_mx = mx;
+	_my = my;
+}
+
 Sint32 Controller::getMx() {
 	return _mx;
 }

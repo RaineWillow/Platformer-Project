@@ -5,6 +5,8 @@
 #include "core/camera.hpp"
 #include "map/tilemap.hpp"
 #include "utils/controller.hpp"
+#include "gui/widget.hpp"
+#include "gui/g_button.hpp"
 #include <iostream>
 #include <string>
 
@@ -20,6 +22,9 @@ public:
 	bool running();
 
 	void run();
+
+
+	void handleButton(Widget<Game, void> * instance);
 
 private:
 
@@ -40,6 +45,8 @@ private:
 	TileMap * _tileMap;
 	Controller * _controller;
 	SDL_Texture * _renderScreen;
+
+	GButton<Game, void> * _myB;
 
 	void handleWindowEvents(SDL_Event * event);
 

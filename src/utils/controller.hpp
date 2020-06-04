@@ -11,21 +11,21 @@ struct ButtonData{
 
 class Controller {
 public:
-	//keyboard functions
+	//keyboard functions-------------------------------------------------------
 	void keyAdd(SDL_Keycode qKey);
 	void keyDown(SDL_Keycode qKey);
 	void keyUp(SDL_Keycode qKey);
 	bool getKey(SDL_Keycode qKey);
 	bool getKeyClicked(SDL_Keycode qKey);
 
-	//mouse functions
+	//mouse functions----------------------------------------------------------
 	void mbAdd(Uint8 mb);
 	void mbDown(Uint8 mb, Sint32 mx, Sint32 my);
 	void mbUp(Uint8 mb, Sint32 mx, Sint32 my);
 	bool getMb(Uint8 mb);
 	bool getMbClicked(Uint8 mb);
 
-	//void mouseMotion();
+	void mouseMotion(Sint32 mx, Sint32 my);
 
 	Sint32 getMx();
 	Sint32 getMy();

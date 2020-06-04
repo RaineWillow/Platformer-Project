@@ -39,15 +39,19 @@ Game::Game(const char * title, int xPos, int yPos, int width, int height, bool f
 	_controller = new Controller();
 	_renderScreen = SDL_CreateTexture(_buffer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
 
+	_myB = new GButton<Game, void>(200, 200, 100, 25, *this, &Game::handleButton);
+
 
 	// TODO: delete me
 	_resManager->loadTexture("tiles/00.png", _buffer);
 	_resManager->loadTexture("tiles/01.png", _buffer);
+	_resManager->loadTexture("buttons/button_up.png", _buffer);
 	_camera->setCameraPos(12, 7);
 	_tileMap->loadFromFile("C:/dev/c++/Platformer-Project/res/maps/simp_map.dat");
 
 	_controller->keyAdd(SDLK_a);
 	_controller->keyAdd(SDLK_UP);
+	_controller->keyAdd(SDLK_s);
 	_controller->mbAdd(SDL_BUTTON_LEFT);
 }
 
@@ -80,6 +84,7 @@ void Game::handleEvents() {
 			_controller->keyUp(event.key.keysym.sym);
 			break;
 		case SDL_MOUSEMOTION:
+			_controller->mouseMotion(event.motion.x, event.motion.y);
 			break;
 		case SDL_MOUSEBUTTONDOWN:
 			_controller->mbDown(event.button.button, event.button.x, event.button.y);
@@ -99,9 +104,15 @@ void Game::update() {
 	if (_controller->getKeyClicked(SDLK_UP)) {
 		std::cout << "Up was clicked\n";
 	}
-	if (_controller->getMbClicked(SDL_BUTTON_LEFT)) {
+	bool clickCheck = _controller->getMbClicked(SDL_BUTTON_LEFT);
+	if (clickCheck) {
 		std::cout << "left mb clicked. X: " << _controller->getMx() << " Y: " << _controller->getMy() << "\n";
 	}
+	if (_controller->getKeyClicked(SDLK_s)) {
+		std::cout << "Mouse {X: " << _controller->getMx() << ", Y: " << _controller->getMy() << "}\n";
+	}
+
+	_myB->update(_controller->getMx(), _controller->getMy(), clickCheck);
 }
 
 void Game::render() {
@@ -116,6 +127,7 @@ void Game::render() {
 
 	//render all objects here--------------------------------------------------
 	_tileMap->renderMap(_buffer, _resManager, _camera);
+	_myB->render(_buffer, _resManager->getTexture(2));
 	//-------------------------------------------------------------------------
 
 	SDL_SetRenderTarget(_buffer, NULL);
@@ -134,6 +146,10 @@ void Game::run() {
 		update();
 		render();
 	}
+}
+
+void Game::handleButton(Widget<Game, void> * instance) {
+	std::cout << "Button clicked!\n";
 }
 
 void Game::handleWindowEvents(SDL_Event * event) {
