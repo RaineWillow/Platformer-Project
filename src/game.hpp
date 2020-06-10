@@ -5,8 +5,9 @@
 #include "core/camera.hpp"
 #include "map/tilemap.hpp"
 #include "utils/controller.hpp"
-#include "gui/widget.hpp"
-#include "gui/g_button.hpp"
+//#include "gui/widget.hpp"
+//#include "gui/g_button.hpp"
+//#include "gui/widget_base.hpp"
 #include <iostream>
 #include <string>
 
@@ -24,7 +25,7 @@ public:
 	void run();
 
 
-	void handleButton(Widget<Game, void> * instance);
+	//void handleButton(Widget<Game, void> * instance);
 
 private:
 
@@ -46,7 +47,7 @@ private:
 	Controller * _controller;
 	SDL_Texture * _renderScreen;
 
-	GButton<Game, void> * _myB;
+	//WidgetBase * _myB;
 
 	void handleWindowEvents(SDL_Event * event);
 

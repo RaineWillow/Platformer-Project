@@ -5,10 +5,13 @@
 #include <map>
 #include <iterator>
 #include <algorithm>
+#include "SDL2/SDL.h"
 #include "../utils/functor.hpp"
+#include "widget_base.hpp"
 
 template <typename ClassType, typename Result>
-class Widget {
+class Widget : public WidgetBase
+{
 	typedef Result (ClassType::*FunctionType)(Widget*);
 public:
 	virtual ~Widget() {
@@ -16,6 +19,9 @@ public:
 			delete x.second;
 		}
 	}
+
+	virtual void update()=0;
+	virtual void render()=0;
 
 	void registerEvent(std::string qKey, ClassType& object, FunctionType method) {
 		if (_eventList.find(qKey) == _eventList.end()) {

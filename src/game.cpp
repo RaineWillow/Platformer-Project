@@ -16,7 +16,7 @@ Game::Game(const char * title, int xPos, int yPos, int width, int height, bool f
 			std::cout << "Window is created!\n";
 		}
 
-		_buffer = SDL_CreateRenderer(_window, -1, 0);
+		_buffer = SDL_CreateRenderer(_window, -1, SDL_RENDERER_PRESENTVSYNC);
 		if(_buffer)
 		{
 			std::cout << "Render is a success!\n";
@@ -33,19 +33,16 @@ Game::Game(const char * title, int xPos, int yPos, int width, int height, bool f
 	_w = width;
 	_h = height;
 
-	_resManager = new ResourceManager();
+	_resManager = new ResourceManager(_buffer, "res/");
 	_camera = new Camera();
 	_tileMap = new TileMap(0, 0, 0, 0);
 	_controller = new Controller();
 	_renderScreen = SDL_CreateTexture(_buffer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, width, height);
 
-	_myB = new GButton<Game, void>(200, 200, 100, 25, *this, &Game::handleButton);
+	//_myB = new GButton<Game, void>(200, 200, 100, 25, *this, &Game::handleButton);
 
 
 	// TODO: delete me
-	_resManager->loadTexture("tiles/00.png", _buffer);
-	_resManager->loadTexture("tiles/01.png", _buffer);
-	_resManager->loadTexture("buttons/button_up.png", _buffer);
 	_camera->setCameraPos(12, 7);
 	_tileMap->loadFromFile("C:/dev/c++/Platformer-Project/res/maps/simp_map.dat");
 
@@ -61,6 +58,7 @@ Game::~Game() {
 	delete _camera;
 	delete _tileMap;
 	delete _controller;
+	//delete _myB;
 	SDL_DestroyRenderer(_buffer);
 	SDL_DestroyWindow(_window);
 	SDL_Quit();
@@ -112,7 +110,7 @@ void Game::update() {
 		std::cout << "Mouse {X: " << _controller->getMx() << ", Y: " << _controller->getMy() << "}\n";
 	}
 
-	_myB->update(_controller->getMx(), _controller->getMy(), clickCheck);
+	//_myB->update();
 }
 
 void Game::render() {
@@ -127,7 +125,7 @@ void Game::render() {
 
 	//render all objects here--------------------------------------------------
 	_tileMap->renderMap(_buffer, _resManager, _camera);
-	_myB->render(_buffer, _resManager->getTexture(2));
+	//_myB->render(_buffer, _resManager->getTexture(2));
 	//-------------------------------------------------------------------------
 
 	SDL_SetRenderTarget(_buffer, NULL);
@@ -148,9 +146,9 @@ void Game::run() {
 	}
 }
 
-void Game::handleButton(Widget<Game, void> * instance) {
-	std::cout << "Button clicked!\n";
-}
+//void Game::handleButton(Widget<Game, void> * instance) {
+//	std::cout << "Button clicked!\n";
+//}
 
 void Game::handleWindowEvents(SDL_Event * event) {
 	if (event->window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
