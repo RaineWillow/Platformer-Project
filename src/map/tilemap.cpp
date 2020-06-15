@@ -59,7 +59,9 @@ void TileMap::renderMap(SDL_Renderer * renderer, ResourceManager * resman, Camer
 			tileRect.x = x * _tileWidth + currCam->camX();
 			tileRect.y = y * _tileHeight + currCam->camY();
 			//change line later to get id of resource from animation manager
-			SDL_RenderCopy(renderer, resman->getTexture(_tMap[x * _mapWidth + y].getId()), NULL, &tileRect);
+			if (_tMap[y * _mapWidth + x].getId() != 0) {
+				SDL_RenderCopy(renderer, resman->getTexture(_tMap[y * _mapWidth + x].getId()), NULL, &tileRect);
+			}
 		}
 	}
 }

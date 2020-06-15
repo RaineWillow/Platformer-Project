@@ -47,9 +47,9 @@ Game::Game(const char * title, int xPos, int yPos, int width, int height, bool f
 	_tileMap->loadFromFile("C:/dev/c++/Platformer-Project/res/maps/simp_map.dat");
 
 	_controller->keyAdd(SDLK_a);
-	_controller->keyAdd(SDLK_UP);
+	_controller->keyAdd(SDLK_w);
 	_controller->keyAdd(SDLK_s);
-	_controller->mbAdd(SDL_BUTTON_LEFT);
+	_controller->keyAdd(SDLK_d);
 }
 
 Game::~Game() {
@@ -96,18 +96,17 @@ void Game::handleEvents() {
 }
 
 void Game::update() {
-	if (_controller->getKeyClicked(SDLK_a)) {
-		std::cout << "A was clicked\n";
+	if (_controller->getKey(SDLK_a)) {
+		_camera->setCameraPos(_camera->camX()-1, _camera->camY());
 	}
-	if (_controller->getKeyClicked(SDLK_UP)) {
-		std::cout << "Up was clicked\n";
-	}
-	bool clickCheck = _controller->getMbClicked(SDL_BUTTON_LEFT);
-	if (clickCheck) {
-		std::cout << "left mb clicked. X: " << _controller->getMx() << " Y: " << _controller->getMy() << "\n";
+	if (_controller->getKeyClicked(SDLK_w)) {
+		std::cout << "W was clicked\n";
 	}
 	if (_controller->getKeyClicked(SDLK_s)) {
-		std::cout << "Mouse {X: " << _controller->getMx() << ", Y: " << _controller->getMy() << "}\n";
+		std::cout << "S was clicked\n";
+	}
+	if (_controller->getKey(SDLK_d)) {
+		_camera->setCameraPos(_camera->camX()+1, _camera->camY());
 	}
 
 	//_myB->update();
@@ -119,10 +118,10 @@ void Game::render() {
 	renderRect.h = _ch;
 	renderRect.x = _ox;
 	renderRect.y = _oy;
-
 	SDL_RenderClear(_buffer);
 	SDL_SetRenderTarget(_buffer, _renderScreen);
-
+	SDL_RenderClear(_buffer);
+	
 	//render all objects here--------------------------------------------------
 	_tileMap->renderMap(_buffer, _resManager, _camera);
 	//_myB->render(_buffer, _resManager->getTexture(2));
